@@ -46,5 +46,11 @@ def predict():
 
     return jsonify({"error": "Invalid file format"}), 400
 
+# Route to serve the favicon
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Ensure Render assigns the correct port
+    app.run(host="0.0.0.0", port=port)
