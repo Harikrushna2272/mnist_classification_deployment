@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
 from werkzeug.utils import secure_filename
-from tourch_utills import transform_image, get_prediction  # Import model functions
+from torch_utils import transform_image, get_prediction  # Correct import
 
 app = Flask(__name__)
 
@@ -52,5 +52,5 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Ensure Render assigns the correct port
+    port = int(os.environ.get("PORT", 5000))  # Use Render's assigned port
     app.run(host="0.0.0.0", port=port)
