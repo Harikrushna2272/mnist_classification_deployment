@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify
 import os
 from werkzeug.utils import secure_filename
-from torch_utills import transform_image, get_prediction  # Correct import
+from torch_utills import transform_image, get_prediction  # Ensure this module exists
 
 app = Flask(__name__)
 
@@ -46,13 +46,11 @@ def predict():
 
     return jsonify({"error": "Invalid file format"}), 400
 
-# Route to serve the favicon
+# Handle favicon requests (to avoid unnecessary errors)
 @app.route('/favicon.ico')
 def favicon():
-    favicon_path = os.path.join(app.root_path, "static", "favicon.ico")
-    return send_from_directory(os.path.dirname(favicon_path), "favicon.ico", mimetype="image/vnd.microsoft.icon")
-    # return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return '', 204  # No content response
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Use Render's assigned port
+    port = int(os.environ.get("PORT", 5000))  # Fetch PORT dynamically for Render
     app.run(host="0.0.0.0", port=port)
