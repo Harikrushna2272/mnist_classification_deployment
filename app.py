@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
 from werkzeug.utils import secure_filename
-from torch_utils import transform_image, get_prediction  # Correct import
+from torch_utills import transform_image, get_prediction  # Correct import
 
 app = Flask(__name__)
 
